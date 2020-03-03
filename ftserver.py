@@ -56,22 +56,26 @@ serverPort = int(sys.argv[1])
 #Code Version: Version: 1
 #Availability: realpython.com/python-sockets/
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as serverSocket: 
-    serverSocket.bind((serverHost, serverPort))
-    while True:
-	    serverSocket.listen()
-	    conn, addr = serverSocket.accept()
-	    with conn:
-	        print('Connected by', addr)
-	        isDone = False
-	        while not isDone:
-	            data = getMessage()	
-	            if checkForQuit(data):
-	            	terminateConnection()
-	            	isDone = True
-	            else:
-		            print("Client: " + data)
-		            reply = sendMessage()
-		            if checkForQuit(reply):
-		            	terminateConnection()
-		            	isDone = True
+	serverSocket.bind((serverHost, serverPort))
+	while True:
+		serverSocket.listen()
+		conn, addr = serverSocket.accept()
+		with conn:
+			print('Connected by', addr)
+			isDone = False
+			while not isDone:
+				data = getMessage()	
+				if checkForQuit(data):
+					terminateConnection()
+					isDone = True
+				elif data == "-l":
+					reply = "Here is my directory"
+					conn.sendall(reply)
+				elif data == "-g":
+					reply = "Let me check if we have that file"
+					conn.sendall(reply)
+					#reply = sendMessage()
+				elif checkForQuit(reply):
+					terminateConnection()
+					isDone = True
 	
