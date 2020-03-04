@@ -70,12 +70,15 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as serverSocket:
 					isDone = True
 				elif data == "-l":
 					reply = "Here is my directory"
-					conn.sendall(reply)
+					conn.sendall(reply.encode("utf-8"))
 				elif data == "-g":
 					reply = "Let me check if we have that file"
-					conn.sendall(reply)
+					conn.sendall(reply.encode("utf-8"))
 					#reply = sendMessage()
-				elif checkForQuit(reply):
-					terminateConnection()
-					isDone = True
+#				elif checkForQuit(reply):
+#					terminateConnection()
+#					isDone = True
+				else:
+					reply = "Command not recognized"
+					conn.sendall(reply.encode("utf-8"))
 	
