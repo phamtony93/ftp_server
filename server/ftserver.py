@@ -65,6 +65,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as serverSocket:
 			isDone = False
 			while not isDone:
 				data = getMessage()	
+				print("message is" + data)
 				if checkForQuit(data):
 					terminateConnection()
 					isDone = True
